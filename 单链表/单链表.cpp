@@ -2,7 +2,7 @@
 //
 
 #include <iostream>
-
+using namespace std;
 typedef struct LNode
 {
     int date;
@@ -16,17 +16,41 @@ bool InitList(LinkList &L) {
     L->Next = NULL;
     return true;
 }
-LinkList InsertNode(LinkList &L) {
-    int j = 9999;
+bool HeadInsert(LinkList &L) {
+    int j = 0000;
     std::cin >> j;
-    while (j != 9999) {
+    while (j != 0000) {
         LNode* s = (LNode*)malloc(sizeof(LNode));
         s->date = j;
         s->Next = L->Next;
         L->Next = s;
         std::cin >> j;
     }
-    return L;
+    return true;
+}
+bool TailInsert(LinkList &L) {
+    int j = 0000;
+    cin>>j;
+    LNode* r;
+    r = L;
+    while (r->Next != NULL)
+    {
+        r = r->Next;
+    }
+    while (j!=0000)
+    {
+        
+        LNode* s = new LNode;
+        s->date = j;
+        r->Next = s;
+        r = s;
+        s->Next = NULL;
+        //s->date = j;
+        //s->Next = NULL;
+        //r->Next = s;
+        cin >> j;
+    }
+    return true;
 }
 int PrintLinkList(LinkList L) {
     LNode* x = (LNode*)malloc(sizeof(LNode));
@@ -38,15 +62,41 @@ int PrintLinkList(LinkList L) {
     }
     else
     {
+        free(x);
         return 9999;
     }
+}
+bool FindNode(LinkList L,int i) {
+    int j = 1;
+    LNode* p = L->Next;
+    if (i == 0)
+        return L;
+    if (i < 1)
+        return NULL;
+    while (p&&j<i)
+    {
+        p = p->Next;
+        j++;
+    }
+    return true;
 }
 int main()
 {
     LinkList L;
+    int num = 2;
     InitList(L);
     std::cout << "请输入正整数后确认\n";
-    InsertNode(L);
+    HeadInsert(L);
+    std::cout << "请输入正整数后确认\n";
+    TailInsert(L);
     PrintLinkList(L);
     std::cout << "Hello World!\n";
+    if (FindNode(L,num)) {
+        cout << "已经找到第"<<num<<endl;
+        
+    }
+    else
+    {
+        cout << "没有找到" << num << endl;
+    }
 }
