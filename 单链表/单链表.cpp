@@ -17,7 +17,7 @@ bool InitList(LinkList &L) {
     return true;
 }
 bool HeadInsert(LinkList &L) {
-    int j = 0000;
+    int j = 0000; 
     std::cin >> j;
     while (j != 0000) {
         LNode* s = (LNode*)malloc(sizeof(LNode));

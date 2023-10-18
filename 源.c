@@ -1,4 +1,5 @@
 #include <stdio.h>
+
 #define Maxsize 10
 typedef struct {
 	int data[Maxsize];
