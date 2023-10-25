@@ -65,6 +65,41 @@ int WriteLinkList(SqList &L) {
 	}
 	return true;
 }
+int DeleteMinNumSqList(SqList& L) {
+	if (L.lenth == 0) {
+		cout << "错误，顺序表为空\n";
+		return 0;
+	}
+	int min = L.data[0];
+	int NO_ = 1;
+	int x;
+	for (x = 0;x < L.lenth;x++) {
+		if (min > L.data[x]) {
+			min = L.data[x];
+			NO_ = x + 1;
+		}
+	}
+	if (NO_ == L.lenth) {
+		L.data[L.lenth - 1] = 0;
+		--L.lenth;
+	}
+	else
+	{
+		L.data[NO_ - 1] = L.data[L.lenth - 1];
+		L.lenth--;
+	}
+	
+	return min;
+}
+void ReverseSqList(SqList& L) {
+	int temp; 
+	for (int j = 0;j < L.lenth / 2;j++) {
+		temp = L.data[j];
+		L.data[j] = L.data[L.lenth - 1 - j];
+		L.data[L.lenth - 1 - j] = temp;
+	}
+}
+
 typedef struct _DSqList //动态分配
 {
 	int *data;
@@ -85,6 +120,34 @@ void IncreaseList(DSqList &L,int x) {
 	L.MaxSize = L.MaxSize + x;
 	free(p);
 }
+
+//考试
+int Majority(int A[], int n) {
+	int i, c, count = 1;
+	c = A[0];
+	for (i = 1;i < n;i++) {
+		if (A[i] == c)
+			count++;
+		else {
+			if (count > 0)
+				count--;
+			else {
+				c = A[i];
+				count = 1;
+			}
+		}
+
+	}
+	if (count > 0) {
+		for (i = count = 0;i < n;i++) {
+			if (A[i] == c)
+				count++;
+		}
+	}
+	if (count > n / 2)return c;
+	else return -1;
+}
+
 void main() {
 	DSqList L;//定义动态表
 	InitDList(L);
@@ -97,16 +160,30 @@ void main() {
 	cout << L.MaxSize << endl;
 	IncreaseList(L, 2);
 	cout << L.MaxSize << endl;
-	std::cin >> x;
+	//std::cin >> x;
 	//静态表操作
-	int e;
+	int e=0;
 	SqList StaticList;
 	InitSqList(StaticList);
-	WriteLinkList(StaticList);
-	cout << "开始打印静态顺序表\n";
+	//WriteLinkList(StaticList);
+	for (x = 0;x < Maxsize;x++) {
+		StaticList.data[x] = x+1;
+		StaticList.lenth++;
+	}
+	cout << "写入完成，开始打印静态顺序表\n";
 	PrintSqList(StaticList);
-	DeleteSqList(StaticList, 6, e);
+
+	//e = DeleteMinNumSqList(StaticList);
+	//DeleteSqList(StaticList, 6, e);
+
+	ReverseSqList(StaticList);
+
 	cout << "开始打印静态顺序表\n";
 	PrintSqList(StaticList);
 	cout << e<< endl;
+
+	int A[9] = {1 ,5,1,5,1,5,1,5,1 };
+	e = Majority(A, 9);
+	cout << e << endl;
+	std::cin >> e;
 }
